@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} {% endblock title %}
+
+{% block content %}
+
+{% for obj in object_list %}
+    <h2>{{ obj.title }}</h2>
+    <img src="{{ obj.image.url }}" alt = "">
+    <p> {{ obj.content|truncatechars:20 }}</p>
+{% endfor %}
+
+{% endblock content %}
