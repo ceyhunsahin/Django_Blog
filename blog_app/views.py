@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from .models import Post
 from .forms import PostForm
 
@@ -25,7 +25,7 @@ def post_create(request):
             post.save()
             return redirect('pages:list')
     context = {
-        'form' : form
+        'form': form
     }
     return render(request, 'pages/post_create.html', context)
 

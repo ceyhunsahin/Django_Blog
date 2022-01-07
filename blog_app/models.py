@@ -18,7 +18,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image = models.ImageField(upload_to=user_directory_path, default='django.jpg')
+    image = models.ImageField(upload_to=user_directory_path, default='django_1.jpeg')
     category = models.ForeignKey(Category, on_delete = models.PROTECT)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
