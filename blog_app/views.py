@@ -13,6 +13,25 @@ def post_list(request) :
         'object_list' : qs,
         'user' : user
     }
+    if request.method == 'POST':
+        post_id = request.POST.get ('post_id')
+        print (post_id)
+        post_obj = Post.objects.get (id=post_id)
+        print (post_obj)
+
+        if user in post_obj.liked.all ():
+            post_obj.liked.remove (user)
+        else:
+            post_obj.liked.add (user)
+
+        like, created= Like.objects.get_or_create (user=user, post_id=post_id)
+        print(Like.objects.get_or_create (user=user, post_id=post_id))
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else :
+                like.value = 'Like'
+            like.save ()
     return render(request, 'pages/post_list.html', context)
 
 def post_create(request):
@@ -31,24 +50,28 @@ def post_create(request):
     }
     return render(request, 'pages/post_create.html', context)
 
-def like_post(request):
-    user = request.user
-    if request.method == 'POST':
-        post_id = request.POST.get('post_id')
-        print(post_id)
-        post_obj = Post.objects.get(id = post_id)
-        print(post_obj)
-
-        if user in post_obj.liked.all():
-            post_obj.liked.remove(user)
-        else : post_obj.liked.add(user)
-
-        like, created = Like.objects.get_or_create(user = user, post_id=post_id)
-        if not created:
-            if like.value == 'Like' :
-                like.value = 'Unlike'
-
-            like.save()
-
-        return redirect('pages:list')
+# def like_post(request):
+#     user = request.user
+#     if request.method == 'POST':
+#         post_id = request.POST.get('post_id')
+#         print(post_id)
+#         post_obj = Post.objects.get(id = post_id)
+#         print(post_obj)
+#
+#         if user in post_obj.liked.all():
+#             post_obj.liked.remove(user)
+#         else : post_obj.liked.add(user)
+#
+#         like, created = Like.objects.get_or_create(user = user, post_id=post_id)
+#         if not created:
+#             if like.value == 'Like' :
+#                 like.value = 'Unlike'
+#
+#             like.save()
+#
+#         return redirect('pages:list')
 # Create your views here.
+def like_post(request):
+    pass
+
+

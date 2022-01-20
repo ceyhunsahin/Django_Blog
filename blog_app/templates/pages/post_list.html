@@ -18,9 +18,9 @@
                 <h5 class="card-title">{{ obj.title }}</h5>
                 <p class="card-text">{{ obj.content|truncatechars:20 }}</p>
                 <a href="#" class="btn btn-primary">Detail</a>
-              <form action="{% url 'pages:like' %}" method = 'POST' >
+              <form action="{{ obj.get_absolute_url }}" method = 'POST' >
                 {% csrf_token %}
-                  <input type="hidden" name="post_id" value="{{ obj.id }}">
+                  <input type="hidden" name="post_id" value="{{ obj.pk }}">
                     {% if user not in obj.liked.all %}
                         <button type="submit">Like</button>
                     {% else %}

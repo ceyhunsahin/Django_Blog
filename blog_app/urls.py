@@ -6,9 +6,10 @@ from django.conf import settings
 app_name = "pages"
 
 urlpatterns = [
-    path('home/', home_view),
+    path('', home_view),
     path('postlist/', post_list, name = 'list'),
     path('postcreate/', post_create, name = 'create'),
-    path('postlike/', like_post, name = 'like'),
+
+    # path('postlike/', like_post, name = 'like'),
 
 ]
