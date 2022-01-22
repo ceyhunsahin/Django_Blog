@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
-from .models import Post, Like
+from django.shortcuts import render, redirect,HttpResponseRedirect
+from .models import Post, Like, Category, Comment, PostView
 from .forms import PostForm
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 def home_view(request):
@@ -8,11 +10,26 @@ def home_view(request):
 
 def post_list(request) :
     qs = Post.objects.all()
+    xx = User.objects.all ()
+    print('xxxxxx',xx)
     user = request.user
     context = {
         'object_list' : qs,
         'user' : user
     }
+    # post1 = User.objects.all()
+    # print('post1', post1)
+    # post2 = Like.objects.filter(post__title='ceyhun')
+    # print ('post2', post2)
+    # post3 = Like.objects.filter(user__username='john')
+    # print ('post3', post3)
+    # blogs = PostView.objects.filter(user__id = '1')
+    # print('blog', blogs)
+    # post4 = Post.objects.filter(category__name__icontains = 'django' )
+    # print("post4", post4)
+    if qs_slug != None:
+        category_page = get_object_or_404(Category, slug = category_slug)
+        courses = Course.objects.filter(available=True, category= category_page)
     if request.method == 'POST':
         post_id = request.POST.get ('post_id')
         print (post_id)
@@ -32,6 +49,8 @@ def post_list(request) :
             else :
                 like.value = 'Like'
             like.save ()
+            # return redirect ('pages:list')
+
     return render(request, 'pages/post_list.html', context)
 
 def post_create(request):
@@ -48,8 +67,12 @@ def post_create(request):
     context = {
         'form': form
     }
-    return render(request, 'pages/post_create.html', context)
+    return redirect('pages:list')
+def about_view(request) :
+    return render(request, 'pages/about.html')
 
+def post_detail(request):
+    return render(request, 'pages/post_list.html')
 # def like_post(request):
 #     user = request.user
 #     if request.method == 'POST':

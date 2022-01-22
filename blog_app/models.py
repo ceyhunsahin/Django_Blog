@@ -53,6 +53,8 @@ class Like(models.Model) :
     def __str__(self):
         return self.user.username
 
+
+
 class PostView(models.Model):
     user = models.ForeignKey (User, on_delete=models.CASCADE)
     post = models.ForeignKey (Post, on_delete=models.CASCADE)

@@ -1,4 +1,4 @@
-{#{% extends 'base.html' %}#}
+{% extends 'base.html' %}
 {% load static %}
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1", shrink-to-fit="no" />
@@ -6,7 +6,9 @@
         rel="stylesheet"
         integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
         crossorigin="anonymous">
-{% block title %} {% endblock title %}
+{% block title %}
+
+{% endblock title %}
 
 {% block content %}
 <div class="card" style="width: 18rem;">
@@ -17,8 +19,8 @@
               <div class="card-body">
                 <h5 class="card-title">{{ obj.title }}</h5>
                 <p class="card-text">{{ obj.content|truncatechars:20 }}</p>
-                <a href="#" class="btn btn-primary">Detail</a>
-              <form action="{{ obj.get_absolute_url }}" method = 'POST' >
+                <a href="{% url 'pages:detail' post.slug %}" class="btn btn-primary">Detail</a>
+              <form action="{% url 'pages:list' %}" method = 'POST' >
                 {% csrf_token %}
                   <input type="hidden" name="post_id" value="{{ obj.pk }}">
                     {% if user not in obj.liked.all %}
